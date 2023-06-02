@@ -9,13 +9,8 @@ Check out the marketplace:
 
 # Built With
 
-Thirdweb
-Next.js
-React
-Typescript
-Vercel
-Ethers
-Alchemy
-Google Cloud Platform
+## Thirdweb | Next.js | React | Typescript | VVercel | Ethers | Alchemy | Google Cloud Platform
+
+![image](https://github.com/westonnelson/locked-nfte/assets/29180454/807b98fe-da35-43e7-9859-94ab46b47399)
 
 # NFTs are for all of the Earth 
