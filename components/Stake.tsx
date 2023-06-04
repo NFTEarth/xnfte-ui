@@ -38,18 +38,6 @@ export default function Stake() {
             xNFTETokenContract, 
             address
         );
-    
-    const { mutateAsync: create_lock, isLoading } = useContractWrite(contract, "Create Lock")
-
-  const call = async () => {
-    try {
-      const data = await create_lock({ args: [_value, _unlock_time] });
-      console.info("Contract Call Success", data);
-    } catch (err) {
-      console.error("Contract Call Failed", err);
-    }
-  }
-}
         
     useEffect(() => {
         setInterval(() => {
@@ -66,7 +54,7 @@ export default function Stake() {
     
     return (
         <Card p={5} mt={10}>
-            <Heading>Earn $ETH rewards</Heading>
+            <Heading>Earn ETH Rev Share</Heading>
             <SimpleGrid columns={2}>
                 <Card p={5} m={5}>
                     <Box textAlign={"center"} mb={5}>
@@ -83,15 +71,15 @@ export default function Stake() {
                         <Stack spacing={4}>
                             <Input
                                 type="number"
-                                max={xNFTETokenBalance?.displayValue}
+                                max={NFTETokenBalance?.displayValue}
                                 value={stakeAmount}
                                 onChange={(e) => setStakeAmount(e.target.value)}
                             />
                             <Web3Button
-                                contractAddress={FEE_DISTRIBUTOR_ADDRESS}
+                                contractAddress={XNFTE_CONTRACT_ADRESS}
                                 action={async (contract) => {
                                 await xNFTETokenContract?.setAllowance(
-                                        FEE_DISTRIBUTOR_ADDRESS,
+                                        XNFTE_CONTRACT_ADDRESS,
                                         stakeAmount
                                 );
                                 await contract.call(
