@@ -14,9 +14,6 @@ const Home: NextPage = () => {
           <Heading>Please Connect Your Wallet</Heading>
         </Flex>
       </Container>
-      
-    <Container maxW={"1200px"}>
-        <Flex h={"50vh"} justifyContent={"center"} alignItems={"center"}>
     )
   }
   
