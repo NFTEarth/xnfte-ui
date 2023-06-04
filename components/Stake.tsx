@@ -1,12 +1,11 @@
 import { Box, Card, Flex, Heading, Input, SimpleGrid, Skeleton, Stack, Text, useToast } from "@chakra-ui/react";
-import { Web3Button, useAddress, useContract, useContractRead, useTokenBalance } from "@thirdweb-dev/react";
+import { Web3Button, useAddress, useContract, useContractRead, useTokenBalance, useContractWrite } from "@thirdweb-dev/react";
 import { XNFTE_CONTRACT_ADDRESS, NFTE_CONTRACT_ADDRESS, EARTHLINGS_CONTRACT_ADDRESS, FEE_DISTRIBUTOR_ADDRESS } from "../constants/addresses";
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-
 export default function Stake() {
-    const address = useAddress();
+  const { contract } = useContract("0xa282373c58dE9ecD5eAeC2CC1Ab51b8Dae3E6C7b");
     const { 
         contract: NFTEToken
     } = useContract(NFTE_CONTRACT_ADDRESS, "token");
@@ -39,6 +38,18 @@ export default function Stake() {
             xNFTETokenContract, 
             address
         );
+    
+    const { mutateAsync: create_lock, isLoading } = useContractWrite(contract, "Create Lock")
+
+  const call = async () => {
+    try {
+      const data = await create_lock({ args: [_value, _unlock_time] });
+      console.info("Contract Call Success", data);
+    } catch (err) {
+      console.error("Contract Call Failed", err);
+    }
+  }
+}
         
     useEffect(() => {
         setInterval(() => {
