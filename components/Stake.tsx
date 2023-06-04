@@ -5,8 +5,11 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 export default function Stake() {
+
   const { contract } = useContract("0xa282373c58dE9ecD5eAeC2CC1Ab51b8Dae3E6C7b");
-    const { 
+  const { data, isLoading } = useContractRead(contract, "balanceOf", [addr])
+}
+  const { 
         contract: NFTEToken
     } = useContract(NFTE_CONTRACT_ADDRESS, "token");
     const { 
@@ -28,7 +31,7 @@ export default function Stake() {
         data: NFTETokenBalance,
         isLoading: loadingNFTETokenBalance 
     } = useTokenBalance(
-            NFTEToken, 
+            NFTETokenContract, 
             address
         );
     const {  
@@ -45,10 +48,9 @@ export default function Stake() {
         }, 10000);
     }, []);
     const [stakeAmount, setStakeAmount] = useState<string>("0");
-    const [unstakeAmount, setUnstakeAmount] = useState<string>("0");
     function resetValue() {
         setStakeAmount("0");
-        setUnstakeAmount("0");
+       
     }
     const toast = useToast();
     
@@ -95,28 +97,6 @@ export default function Stake() {
                                     isClosable: true,
                                 })}
                             >Stake</Web3Button>
-                        </Stack>
-                        <Stack spacing={4}>
-                            <Input
-                                type="number"
-                                value={unstakeAmount}
-                                onChange={(e) => setUnstakeAmount(e.target.value)}
-                            />
-                            <Web3Button
-                            contractAddress={FEE_DISTRIBUTOR_ADDRESS}
-                            action={async (contract) => {
-                                await contract.call(
-                                    "withdraw",
-                                    [ethers.utils.parseEther(unstakeAmount)]
-                                );
-                            }}
-                            onSuccess={() => toast({
-                                title: "Unstake Successful",
-                                status: "success",
-                                duration: 5000,
-                                isClosable: true,
-                            })}
-                        >Unstake</Web3Button>
                         </Stack>
                     </SimpleGrid>
                 </Card>
